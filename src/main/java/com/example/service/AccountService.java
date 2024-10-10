@@ -1,6 +1,5 @@
 package com.example.service;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Account;
@@ -27,5 +26,13 @@ public class AccountService {
         }
 
         return accountRepo.save(account);
+    }
+
+    public Account postUserLogin(Account account){
+        String dbPass = accountRepo.userPassCorrect(account.getUsername());
+        if(accountRepo.userExist(account.getUsername()) != null && dbPass.equals(account.getPassword())){
+            return accountRepo.userExist(account.getUsername());
+        }
+        return null;
     }
 }

@@ -18,7 +18,7 @@ import com.example.service.AccountService;
  @RestController
 public class SocialMediaController {
     /*
-     * POST localhost:8080/register
+     * POST localhost:8080/register FINISHED
      * POST localhost:8080/login
      * POST localhost:8080/messages
      * GET localhost:8080/messages
@@ -40,6 +40,15 @@ public class SocialMediaController {
         return ResponseEntity.status(200).body(account);
       else
         return ResponseEntity.status(409).body(account);
+     }
+
+     @PostMapping("/login")
+     public ResponseEntity<Account> postUserLogin(@RequestBody Account account){
+      Account loginAccount = accountService.postUserLogin(account);
+      if(loginAccount != null)
+        return ResponseEntity.status(200).body(loginAccount);
+      else
+        return ResponseEntity.status(401).body(loginAccount);
      }
 
 }
