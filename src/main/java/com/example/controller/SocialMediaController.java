@@ -1,8 +1,10 @@
 package com.example.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +24,7 @@ public class SocialMediaController {
     /*
      * POST localhost:8080/register FINISHED
      * POST localhost:8080/login FINISHED
-     * POST localhost:8080/messages
+     * POST localhost:8080/messages FINISHED
      * GET localhost:8080/messages
      * GET localhost:8080/messages/{messageId}
      * DELETE localhost:8080/messages/{messageId}
@@ -62,6 +64,11 @@ public class SocialMediaController {
         return ResponseEntity.status(200).body(newMessage);
       else
         return ResponseEntity.status(400).body(newMessage);
+     }
+
+     @GetMapping("/messages")
+     public ResponseEntity<List<Message>> getAllMessages(){
+      return ResponseEntity.status(200).body(messageService.getAllMessages());
      }
 
 }
