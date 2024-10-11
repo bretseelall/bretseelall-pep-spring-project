@@ -3,7 +3,6 @@ package com.example.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,16 +24,6 @@ import com.example.service.MessageService;
 
  @RestController
 public class SocialMediaController {
-    /*
-     * POST localhost:8080/register FINISHED
-     * POST localhost:8080/login FINISHED
-     * POST localhost:8080/messages FINISHED
-     * GET localhost:8080/messages FINISHED
-     * GET localhost:8080/messages/{messageId} FINISHED
-     * DELETE localhost:8080/messages/{messageId}
-     * PATCH localhost:8080/messages/{messageId}
-     * GET localhost:8080/accounts/{accountId}/messages
-     */
     private AccountService accountService;
     private MessageService messageService;
 
@@ -97,6 +86,11 @@ public class SocialMediaController {
         return ResponseEntity.status(400).body(0);
       else
         return ResponseEntity.status(200).body(1);
+     }
+
+     @GetMapping("/accounts/{accountId}/messages")
+     public ResponseEntity<List<Message>> getMessagesByUser(@PathVariable int accountId){
+      return ResponseEntity.status(200).body(messageService.getMessagesByUser(accountId));
      }
 
 }

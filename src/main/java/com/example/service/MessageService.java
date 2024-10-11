@@ -54,4 +54,8 @@ public class MessageService {
         }
         return 0;
     }
+
+    public List<Message> getMessagesByUser(int id){
+        return messageRepository.findMessagesByUser(id);
+    }
 }
