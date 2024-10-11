@@ -3,9 +3,11 @@ package com.example.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -86,6 +88,15 @@ public class SocialMediaController {
       }
       else
         return ResponseEntity.status(200).body("");
+     }
+
+     @PatchMapping("/messages/{messageId}")
+     public ResponseEntity updateMessageById(@PathVariable int messageId, @RequestBody Message message){
+      int val = messageService.updateMessageById(messageId, message.getMessageText());
+      if(val == 0)
+        return ResponseEntity.status(400).body(0);
+      else
+        return ResponseEntity.status(200).body(1);
      }
 
 }

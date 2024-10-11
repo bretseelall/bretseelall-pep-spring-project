@@ -44,4 +44,14 @@ public class MessageService {
         return 0;
             
     }
+
+    public int updateMessageById(int id, String messageText){
+        if(messageRepository.existsById(id) && !messageText.isBlank() && messageText.length() <= 255){
+            Message updatedMessage = messageRepository.findById(id).get();
+            updatedMessage.setMessageText(messageText);
+            messageRepository.save(updatedMessage);
+            return 1;
+        }
+        return 0;
+    }
 }
