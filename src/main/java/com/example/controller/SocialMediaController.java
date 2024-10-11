@@ -1,12 +1,14 @@
 package com.example.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.entity.*;
 import com.example.service.AccountService;
+import com.example.service.MessageService;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
@@ -19,7 +21,7 @@ import com.example.service.AccountService;
 public class SocialMediaController {
     /*
      * POST localhost:8080/register FINISHED
-     * POST localhost:8080/login
+     * POST localhost:8080/login FINISHED
      * POST localhost:8080/messages
      * GET localhost:8080/messages
      * GET localhost:8080/messages/{messageId}
@@ -28,9 +30,11 @@ public class SocialMediaController {
      * GET localhost:8080/accounts/{accountId}/messages
      */
     private AccountService accountService;
+    private MessageService messageService;
 
-    public SocialMediaController(AccountService accountService){
+    public SocialMediaController(AccountService accountService, MessageService messageService){
       this.accountService = accountService;
+      this.messageService = messageService;
     }
 
      @PostMapping("/register")
@@ -49,6 +53,15 @@ public class SocialMediaController {
         return ResponseEntity.status(200).body(loginAccount);
       else
         return ResponseEntity.status(401).body(loginAccount);
+     }
+
+     @PostMapping("/messages")
+     public ResponseEntity<Message> postNewUserMessage(@RequestBody Message message){
+      Message newMessage = messageService.postNewUserMessage(message);
+      if(newMessage != null)
+        return ResponseEntity.status(200).body(newMessage);
+      else
+        return ResponseEntity.status(400).body(newMessage);
      }
 
 }
