@@ -4,6 +4,7 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,8 +75,17 @@ public class SocialMediaController {
 
      @GetMapping("/messages/{messageId}")
      public ResponseEntity<Message> getMessageById(@PathVariable int messageId){
-      System.out.println("HWHWHWHWHWHWHWHWHWHWHWHWHW ---------- The id is: " + messageId);
       return ResponseEntity.status(200).body(messageService.getMessageById(messageId));
+     }
+
+     @DeleteMapping("/messages/{messageId}")
+     public ResponseEntity deleteMessageById(@PathVariable int messageId){
+      if(messageService.deleteMessageById(messageId) == 1)
+      {
+        return ResponseEntity.status(200).body(1);
+      }
+      else
+        return ResponseEntity.status(200).body("");
      }
 
 }

@@ -35,4 +35,13 @@ public class MessageService {
         else
             return null;
     }
+
+    public int deleteMessageById(int id){
+        if(messageRepository.existsById(id)){
+            messageRepository.deleteById(id);
+            return 1;
+        }
+        return 0;
+            
+    }
 }
