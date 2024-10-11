@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,8 +26,8 @@ public class SocialMediaController {
      * POST localhost:8080/register FINISHED
      * POST localhost:8080/login FINISHED
      * POST localhost:8080/messages FINISHED
-     * GET localhost:8080/messages
-     * GET localhost:8080/messages/{messageId}
+     * GET localhost:8080/messages FINISHED
+     * GET localhost:8080/messages/{messageId} FINISHED
      * DELETE localhost:8080/messages/{messageId}
      * PATCH localhost:8080/messages/{messageId}
      * GET localhost:8080/accounts/{accountId}/messages
@@ -69,6 +70,12 @@ public class SocialMediaController {
      @GetMapping("/messages")
      public ResponseEntity<List<Message>> getAllMessages(){
       return ResponseEntity.status(200).body(messageService.getAllMessages());
+     }
+
+     @GetMapping("/messages/{messageId}")
+     public ResponseEntity<Message> getMessageById(@PathVariable int messageId){
+      System.out.println("HWHWHWHWHWHWHWHWHWHWHWHWHW ---------- The id is: " + messageId);
+      return ResponseEntity.status(200).body(messageService.getMessageById(messageId));
      }
 
 }

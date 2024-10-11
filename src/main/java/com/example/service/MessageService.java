@@ -28,4 +28,11 @@ public class MessageService {
     public List<Message> getAllMessages(){
         return messageRepository.findAll();
     }
+
+    public Message getMessageById(int id){
+        if(messageRepository.existsById(id))
+            return messageRepository.findById(id).get();
+        else
+            return null;
+    }
 }
